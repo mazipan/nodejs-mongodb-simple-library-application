@@ -1,5 +1,5 @@
 /**
- * Created by irfan.maulana on 12/27/2015.
+ * Created by irfan.maulana on 01/01/2016.
  */
 var express = require('express');
 var BookModel = require('../model/book_model');
@@ -53,7 +53,6 @@ router.post('/:bookCategoryId', function (req, res){
                     bookDescription : req.body.bookDescription,
                     bookSynopsis : req.body.bookSynopsis,
                     bookCategory: bookCategory._id,
-                    stock: 1,
                     created : Date.now()
                 });
 
@@ -71,7 +70,6 @@ router.post('/:bookCategoryId', function (req, res){
                             bookDescription : book.bookDescription,
                             bookSynopsis : book.bookSynopsis,
                             bookCategory: bookCategory,
-                            stock: book.stock,
                             created : book.created,
                             modified : book.modified
                         };
@@ -110,7 +108,6 @@ router.put('/:id', function (req, res){
                     book.bookLanguage = req.body.bookLanguage,
                     book.bookDescription = req.body.bookDescription,
                     book.bookSynopsis = req.body.bookSynopsis,
-                    book.stock = req.body.stock,
                     book.bookCategory = bookCategory._id;
 
                     return book.save(function (err) {
@@ -127,54 +124,6 @@ router.put('/:id', function (req, res){
                                 bookDescription : book.bookDescription,
                                 bookSynopsis : book.bookSynopsis,
                                 bookCategory: bookCategory,
-                                stock: book.stock,
-                                created : book.created,
-                                modified : book.modified
-                            };
-
-                            return res.send({result : true, book : jsonResult});
-                        } else {
-                            console.error(err);
-                            return res.send({result : false, errorDesc : err});
-                        }
-                    });
-                } else {
-                    console.error(err);
-                    return res.send({result : false, errorDesc : 'Error when get book '+ req.params.id});
-                }
-            });
-    }else{
-        console.error('Failed getting parameter id.');
-        return res.send({result : false, errorDesc : 'Failed getting parameter id.'});
-    }
-});
-
-
-// Update data stock by Id
-router.put('/updateStock/:id', function (req, res){
-    if(typeof req.params.id !== "undefined" && req.params.id !== null){
-        return BookModel.findById(req.params.id)
-            .populate('bookCategory')
-            .exec(function (err, book) {
-                if (!err) {
-                    var bookCategory = book.bookCategory;
-                    book.stock = req.body.stock;
-
-                    return book.save(function (err) {
-                        if (!err) {
-                            console.info("Book  "+ req.params.id + " stock has been updated "+ book.stock +".");
-
-                            var jsonResult = {
-                                bookCode : book.bookCode,
-                                bookTitle : book.bookTitle,
-                                bookAuthor : book.bookAuthor,
-                                bookYearPublished : book.bookYearPublished,
-                                bookImageUrl : book.bookImageUrl,
-                                bookLanguage : book.bookLanguage,
-                                bookDescription : book.bookDescription,
-                                bookSynopsis : book.bookSynopsis,
-                                bookCategory: bookCategory,
-                                stock: book.stock,
                                 created : book.created,
                                 modified : book.modified
                             };

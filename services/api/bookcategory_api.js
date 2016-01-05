@@ -2,15 +2,15 @@
  * Created by irfan.maulana on 12/27/2015.
  */
 var express = require('express');
-var UserTypeModel = require('../model/usertype_model');
+var BookCategoryModel = require('../model/bookcategory_model');
 
 var router = express.Router();
 
-// Find All User Types
+// Find All Book Categories
 router.get('/', function (req, res){
-    return UserTypeModel.find(function (err, userTypes) {
+    return BookCategoryModel.find(function (err, bookCategories) {
         if (!err) {
-            return res.send({result : true, totalCount : userTypes.length, userTypes : userTypes});
+            return res.send({result : true, totalCount : bookCategories.length, bookCategories : bookCategories});
         } else {
             console.error(err);
             return res.send({result : false, errorDesc : "Failed when get data from storage, check connection !!!"});
@@ -18,37 +18,37 @@ router.get('/', function (req, res){
     });
 });
 
-// Find User Type By Id
+// Find Book Category By Id
 router.get('/:id', function (req, res){
-    return UserTypeModel.findById(req.params.id, function (err, userType) {
+    return BookCategoryModel.findById(req.params.id, function (err, bookCategory) {
         if (!err) {
-            console.info('Get userType '+ req.params.id);
-            return res.send({result : true, userType : userType});
+            console.info('Get bookCategory '+ req.params.id);
+            return res.send({result : true, bookCategory : bookCategory});
         } else {
             console.error(err);
-            return res.send({result : false, errorDesc : 'Error when get userType '+ req.params.id});
+            return res.send({result : false, errorDesc : 'Error when get bookCategory '+ req.params.id});
         }
     });
 });
 
 // Insert new data
 router.post('/', function (req, res){
-    var userType;
+    var bookCategory;
     var errorMessage = "";
     if(typeof req !== 'undefined'){
-        if(req.body.typeName === null || req.body.typeName === ""){
+        if(req.body.categoryName === null || req.body.categoryName === ""){
             errorMessage = "Failed getting parameter name.";
             return res.send({result : false, errorDesc : errorMessage});
         }else{
-            userType = new UserTypeModel({
-                typeName: req.body.typeName,
+            bookCategory = new BookCategoryModel({
+                categoryName: req.body.categoryName,
                 description: req.body.description
             });
 
-            userType.save(function (err) {
+            bookCategory.save(function (err) {
                 if (!err) {
-                    console.info("UserType : "+userType.typeName + " has been created.");
-                    return res.send({result : true, userType : userType});
+                    console.info("BookCategory : " + bookCategory.categoryName + " has been created.");
+                    return res.send({result : true, bookCategory : bookCategory});
                 } else {
                     console.error(err);
                     return res.send({result : false, errorDesc : err});
@@ -65,22 +65,27 @@ router.post('/', function (req, res){
 // Update data by Id
 router.put('/:id', function (req, res){
     if(typeof req.params.id !== "undefined" && req.params.id !== null){
-        return UserTypeModel.findById(req.params.id, function (err, userType) {
-            if(req.body.typeName !== null && req.body.typeName !== ""){
-                userType.typeName = req.body.typeName;
-                userType.description = req.body.description;
-                return userType.save(function (err) {
-                    if (!err) {
-                        console.info("UserType "+ req.params.id+ " has been updated.");
-                        return res.send({result : true, userType : userType});
-                    } else {
-                        console.error(err);
-                        return res.send({result : false, errorDesc : 'Error when update userType '+ req.params.id});
-                    }
-                });
-            }else{
-                console.error('Failed getting parameter name.');
-                return res.send({result : false, errorDesc : 'Failed getting parameter name.'});
+        return BookCategoryModel.findById(req.params.id, function (err, bookCategory) {
+            if (!err) {
+                if(req.body.categoryName !== null && req.body.categoryName !== ""){
+                    bookCategory.categoryName = req.body.categoryName;
+                    bookCategory.description = req.body.description;
+                    return userType.save(function (err) {
+                        if (!err) {
+                            console.info("BookCategory "+ req.params.id+ " has been updated.");
+                            return res.send({result : true, bookCategory : bookCategory});
+                        } else {
+                            console.error(err);
+                            return res.send({result : false, errorDesc : 'Error when update bookCategory '+ req.params.id});
+                        }
+                    });
+                }else{
+                    console.error('Failed getting parameter name.');
+                    return res.send({result : false, errorDesc : 'Failed getting parameter name.'});
+                }
+            } else {
+                console.error(err);
+                return res.send({result : false, errorDesc : 'Error when get bookCategory '+ req.params.id});
             }
         });
     }else{
@@ -92,16 +97,21 @@ router.put('/:id', function (req, res){
 // Delete data by Id
 router.delete('/:id', function (req, res){
     if(typeof req.params.id !== "undefined" && req.params.id !== null){
-        return UserTypeModel.findById(req.params.id, function (err, userType) {
-            return userType.remove(function (err) {
-                if (!err) {
-                    console.info("UserType "+ req.params.id +" has been removed !");
-                    return res.send({result : true, message : 'UserType '+ req.params.id +' has been removed.'});
-                } else {
-                    console.error(err);
-                    return res.send({result : false, errorDesc : 'Error when remove userType '+ req.params.id});
-                }
-            });
+        return BookCategoryModel.findById(req.params.id, function (err, bookCategory) {
+            if (!err) {
+                return bookCategory.remove(function (err) {
+                    if (!err) {
+                        console.info("BookCategory "+ req.params.id +" has been removed !");
+                        return res.send({result : true, message : 'bookCategory '+ req.params.id +' has been removed.'});
+                    } else {
+                        console.error(err);
+                        return res.send({result : false, errorDesc : 'Error when remove bookCategory '+ req.params.id});
+                    }
+                });
+            } else {
+                console.error(err);
+                return res.send({result : false, errorDesc : 'Error when get bookCategory '+ req.params.id});
+            }
         });
     }else{
         console.error('Failed getting parameter id.');

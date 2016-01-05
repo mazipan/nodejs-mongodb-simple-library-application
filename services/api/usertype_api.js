@@ -66,21 +66,26 @@ router.post('/', function (req, res){
 router.put('/:id', function (req, res){
     if(typeof req.params.id !== "undefined" && req.params.id !== null){
         return UserTypeModel.findById(req.params.id, function (err, userType) {
-            if(req.body.typeName !== null && req.body.typeName !== ""){
-                userType.typeName = req.body.typeName;
-                userType.description = req.body.description;
-                return userType.save(function (err) {
-                    if (!err) {
-                        console.info("UserType "+ req.params.id+ " has been updated.");
-                        return res.send({result : true, userType : userType});
-                    } else {
-                        console.error(err);
-                        return res.send({result : false, errorDesc : 'Error when update userType '+ req.params.id});
-                    }
-                });
+            if(!err){
+                if(req.body.typeName !== null && req.body.typeName !== ""){
+                    userType.typeName = req.body.typeName;
+                    userType.description = req.body.description;
+                    return userType.save(function (err) {
+                        if (!err) {
+                            console.info("UserType "+ req.params.id+ " has been updated.");
+                            return res.send({result : true, userType : userType});
+                        } else {
+                            console.error(err);
+                            return res.send({result : false, errorDesc : 'Error when update userType '+ req.params.id});
+                        }
+                    });
+                }else{
+                    console.error('Failed getting parameter name.');
+                    return res.send({result : false, errorDesc : 'Failed getting parameter name.'});
+                }
             }else{
-                console.error('Failed getting parameter name.');
-                return res.send({result : false, errorDesc : 'Failed getting parameter name.'});
+                console.error(err);
+                return res.send({result : false, errorDesc : 'Error when get userType '+ req.params.id});
             }
         });
     }else{
@@ -93,15 +98,20 @@ router.put('/:id', function (req, res){
 router.delete('/:id', function (req, res){
     if(typeof req.params.id !== "undefined" && req.params.id !== null){
         return UserTypeModel.findById(req.params.id, function (err, userType) {
-            return userType.remove(function (err) {
-                if (!err) {
-                    console.info("UserType "+ req.params.id +" has been removed !");
-                    return res.send({result : true, message : 'UserType '+ req.params.id +' has been removed.'});
-                } else {
-                    console.error(err);
-                    return res.send({result : false, errorDesc : 'Error when remove userType '+ req.params.id});
-                }
-            });
+            if(!err){
+                return userType.remove(function (err) {
+                    if (!err) {
+                        console.info("UserType "+ req.params.id +" has been removed !");
+                        return res.send({result : true, message : 'UserType '+ req.params.id +' has been removed.'});
+                    } else {
+                        console.error(err);
+                        return res.send({result : false, errorDesc : 'Error when remove userType '+ req.params.id});
+                    }
+                });
+            }else{
+                console.error(err);
+                return res.send({result : false, errorDesc : 'Error when get userType '+ req.params.id});
+            }
         });
     }else{
         console.error('Failed getting parameter id.');

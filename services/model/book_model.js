@@ -18,6 +18,7 @@ var Book = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'BookCategory'
     },
+    stock : { type: Number},
     created : { type: Date},
     modified : { type: Date, default: Date.now }
 });
