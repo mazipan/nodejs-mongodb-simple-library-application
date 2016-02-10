@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class="row" ng-app="irfan.libraryApplication" ng-controller="library.ctrl")
+    include login-block.jade
+  include footer-block.jade
+
+block javascript
+  script(src = "/javascripts/app/application/LibraryApp.js")
+  script(src = "/javascripts/app/controllers/library-controller.js")
+  script(src = "/javascripts/app/services/library-service.js")
+  script(src = "/javascripts/app/directives/library-directive.js")
+  script(src = "/javascripts/app/filters/library-filter.js")

@@ -1,0 +1,15 @@
+//
+   Created by irfan.maulana on 2/10/2016.
+div(class="row login-wrapper")
+   h1= title
+   p Welcome to #{title}
+   div(class="login-block")
+      div(class="login-header") Form Login
+      form(class="login-form")
+         div(class="input-field")
+            input(type="text" id="login-username" required autofocus)
+            label(for="login-username") Username
+         div(class="input-field")
+            input(type="password" id="login-password" required)
+            label(for="login-password") Password
+         button(type="submit" class="btn waves-effect waves-light dark-green login-btn") Submit Login

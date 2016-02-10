@@ -4,15 +4,24 @@ html(lang="id")
     title= title
     meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no")
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css")
-    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", rel="stylesheet", integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==", crossorigin="anonymous")
+    link(rel='stylesheet', href='/stylesheets/library/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/library/materialize.css')
+    link(rel='stylesheet', href='/stylesheets/library/sweet-alert.css')
+    link(rel='stylesheet', href='/stylesheets/library/font-awesome.min.css')
+
+    block css
   body
     block content
 
-    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js")
-    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js")
-    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js")
-    script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js")
-    script(src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js", integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==", crossorigin="anonymous")
+    script(src = "/javascripts/library/jquery-2.2.0.min.js")
+    script(src = "/javascripts/library/angular.min.js")
+    script(src = "/javascripts/library/angular-resource.min.js")
+    script(src = "/javascripts/library/angular-sanitize.min.js")
+    script(src = "/javascripts/library/materialize.js")
+    script(src = "/javascripts/library/sweet-alert.js")
+    script(src = "/javascripts/library/md5.js")
+
+    script const ROOT_URL = "http://localhost:3000";
+
+    block javascript
 
