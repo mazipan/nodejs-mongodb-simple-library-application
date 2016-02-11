@@ -30,7 +30,16 @@ a {
   padding-top: 5px;
 }
 
-
+nav {
+  background-color: #26a69a !important;
+}
+nav .brand-logo {
+  padding: 0 20px;
+}
+/*
+.tabs .tab a {
+  color: #26a69a !important;
+}*/
 .footer{
   position: fixed;
   bottom: 0;

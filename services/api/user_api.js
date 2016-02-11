@@ -4,8 +4,14 @@
 var express = require('express');
 var UserModel = require('../model/user_model');
 var UserTypeModel = require('../model/usertype_model');
+var crypto = require('crypto');
 
 var router = express.Router();
+
+function hashMD5(stringWillEncode){
+    var hash = crypto.createHash('md5').update(stringWillEncode).digest('hex');
+    return hash;
+};
 
 // Find All Users
 router.get('/', function (req, res){
@@ -49,8 +55,8 @@ router.post('/login', function (req, res){
             })
             .populate('userType')
             .exec(function (err, user) {
-                if (!err) {
-                    console.info('User logging in : '+ req.body.username);
+                if (!err && user !== null) {
+                    console.info('User success login ==> '+ req.body.username);
                     return res.send({result : true, user : user});
                 } else {
                     console.error(err);
@@ -76,7 +82,7 @@ router.post('/:userTypeId', function (req, res){
             if (!err) {
                 user = new UserModel({
                     username : req.body.username,
-                    password : req.body.password,
+                    password : hashMD5(req.body.password),
                     userType: userType._id,
                     trueName : req.body.trueName,
                     email : req.body.email,
@@ -124,7 +130,7 @@ router.put('/:id', function (req, res){
                     var userType = user.userType;
 
                     user.username = req.body.username,
-                    user.password = req.body.password,
+                    user.password = hashMD5(req.body.password),
                     user.userType = req.body.userType,
                     user.trueName = req.body.trueName,
                     user.email = req.body.email;

@@ -1,0 +1,11 @@
+nav
+   div(class="nav-wrapper")
+      a(href="#!" class="brand-logo")
+         i(class="fa fa-codepen fa-2x")
+      ul(class="right hide-on-med-and-down" style="padding-right: 50px;" ng-show="isLoggedIn")
+         li
+            a(href="#") {{userLoggedIn.username}} &nbsp;
+               i(class="fa fa-user fa-2x")
+         li(ng-click="logout()")
+            a(href="#!" )
+               i(class="fa fa-power-off fa-2x")

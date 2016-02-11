@@ -1,4 +1,4 @@
-table
+table(class="striped" ng-show="tabHomePageActive === 'user'")
    thead
       th No
       th Username
@@ -7,3 +7,8 @@ table
       th Action
    tbody
       tr(ng-repeat="user in users track by $index")
+         td {{$index}}
+         td {{user.username}}
+         td {{user.trueName}}
+         td {{user.email}}
+         td Action

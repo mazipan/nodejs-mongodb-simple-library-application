@@ -19,7 +19,7 @@ function libraryServiceUserTypeFunc($resource) {
 }
 
 function libraryServiceUserFunc($resource) {
-    return $resource( ROOT_URL + '/api/users/:command/:command2', {}, {
+    return $resource( ROOT_URL + '/api/users/:userId', {}, {
         'getUsers': {
             method: 'GET',
             params: {
@@ -28,15 +28,15 @@ function libraryServiceUserFunc($resource) {
         },
         'getUser': {
             method: 'GET',
+            userId: '@userId',
             params: {
-                command: '@id', //ID
                 r: Date.now()
             }
         },
         'doLogin': {
             method: 'POST',
+            userId: 'login',
             params: {
-                command: 'login',
                 r: Date.now()
             },
             data:{
@@ -46,8 +46,8 @@ function libraryServiceUserFunc($resource) {
         },
         'insertUser': {
             method: 'POST',
+            userId : '@userTypeId',
             params: {
-                command: '@userTypeId',
                 r: Date.now()
             },
             data:{
