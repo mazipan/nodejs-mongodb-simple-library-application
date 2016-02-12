@@ -2,10 +2,14 @@ extends layout
 
 block content
   div(class="row" ng-app="irfan.libraryApplication" ng-controller="library.ctrl")
+    div(id="particles-js")
     include header-block.jade
     include login-block.jade
     include homepage-block.jade
+    include grid-book-block.jade
+    include grid-transaction-block.jade
     include grid-user-block.jade
+    include form-book-block.jade
   include footer-block.jade
 
 block javascript

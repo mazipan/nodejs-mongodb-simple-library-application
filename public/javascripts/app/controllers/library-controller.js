@@ -4,11 +4,11 @@
 var libraryController = angular.module('irfan.library.controller',[]);
 
 libraryCtrlFunc.$inject =
-    ['$scope', '$http', 'libraryServiceUserType', 'libraryServiceUser', 'libraryServiceBookCategory', 'libraryServiceBook'];
+    ['$scope', '$http', 'libraryServiceUserType', 'libraryServiceUser', 'libraryServiceBookCategory', 'libraryServiceBook', 'libraryServiceTransaction'];
 libraryController.controller('library.ctrl',
-    ['$scope', '$http', 'libraryServiceUserType', 'libraryServiceUser', 'libraryServiceBookCategory', 'libraryServiceBook', libraryCtrlFunc]);
+    ['$scope', '$http', 'libraryServiceUserType', 'libraryServiceUser', 'libraryServiceBookCategory', 'libraryServiceBook', 'libraryServiceTransaction', libraryCtrlFunc]);
 
-function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUser, libraryServiceBookCategory, libraryServiceBook){
+function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUser, libraryServiceBookCategory, libraryServiceBook, libraryServiceTransaction){
 
     $scope.users = [];
     $scope.isLoggedIn = false;
@@ -29,9 +29,8 @@ function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUs
             .then(function (response) {
                 if(response.result){
                     $scope.loginPassword = "";
-                    $scope.isLoggedIn = true;
                     $scope.userLoggedIn = response.user;
-                    $scope.currentPageView = "homepage";
+                    $scope.getDataAfterLoggedIn();
                     localStorage.removeItem("irfanlibraryuserloggedin");
                     localStorage.setItem("irfanlibraryuserloggedin", $scope.userLoggedIn._id);
                 }else{
@@ -41,6 +40,13 @@ function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUs
             });
     };
 
+    $scope.getDataAfterLoggedIn = function () {
+        $scope.isLoggedIn = true;
+        $scope.currentPageView = "homepage";
+        $scope.getAllUsers();
+        $scope.getAllBooks();
+    };
+
     $scope.logout = function(){
         localStorage.removeItem("irfanlibraryuserloggedin");
         $scope.currentPageView = "loginpage";
@@ -48,6 +54,7 @@ function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUs
         $scope.userLoggedIn = null;
     };
 
+    /** COMMUNICATION WITH SERVER **/
     $scope.getAllUsers = function(){
         libraryServiceUser
             .getUsers({})
@@ -56,6 +63,28 @@ function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUs
                 if(response.result){
                     $scope.users = response.users;
                 }else $scope.users = [];
+            });
+    };
+
+    $scope.getAllTransactions = function(){
+        libraryServiceTransaction
+            .getTransactions({})
+            .$promise
+            .then(function (response) {
+                if(response.result){
+                    $scope.transactions = response.transactions;
+                }else $scope.transactions = [];
+            });
+    };
+
+    $scope.getAllBooks = function(){
+        libraryServiceBook
+            .getBooks({})
+            .$promise
+            .then(function (response) {
+                if(response.result){
+                    $scope.books = response.books;
+                }else $scope.books = [];
             });
     };
 
@@ -74,10 +103,8 @@ function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUs
 
     $scope.checkUserAndRedirect = function(){
         if(typeof localStorage !== "undefined" && localStorage.getItem("irfanlibraryuserloggedin") !== null){
-            $scope.isLoggedIn = true;
             $scope.getUserById(localStorage.getItem("irfanlibraryuserloggedin"));
-            $scope.currentPageView = "homepage";
-            $scope.getAllUsers();
+            $scope.getDataAfterLoggedIn();
         }else{
             $scope.currentPageView = "loginpage";
             $scope.isLoggedIn = false;
@@ -85,6 +112,7 @@ function libraryCtrlFunc($scope, $http, libraryServiceUserType, libraryServiceUs
         }
     };
 
+    // RUN FIRST WHEN INITIALIZE CONTROLLER
     $scope.checkUserAndRedirect();
 
 }

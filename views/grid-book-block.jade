@@ -1,18 +1,20 @@
 button(class="waves-effect waves-light btn blue marginright" title="Add New")
    i(class="fa fa-plus")
-table(class="striped" ng-show="tabHomePageActive === 'user'")
+table(class="striped" ng-show="tabHomePageActive === 'book'")
    thead
       th No
-      th Username
-      th Real Name
-      th Email
+      th Title
+      th Author
+      th Category
+      th Year Published
       th Action
    tbody
-      tr(ng-repeat="user in users track by $index")
+      tr(ng-repeat="book in books track by $index")
          td {{$index}}
-         td {{user.username}}
-         td {{user.trueName}}
-         td {{user.email}}
+         td {{book.bookTitle}}
+         td {{book.bookAuthor}}
+         td {{book.bookCategory.categoryName}}
+         td {{book.bookYearPublished}}
          td
             button(class="waves-effect waves-light btn blue marginright" title="Edit")
                i(class="fa fa-pencil")

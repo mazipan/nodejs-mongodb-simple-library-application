@@ -17,6 +17,7 @@ var usertype_api = require(API_FILE_PATH + 'usertype_api');
 var user_api = require(API_FILE_PATH + 'user_api');
 var bookcategory_api = require(API_FILE_PATH + 'bookcategory_api');
 var book_api = require(API_FILE_PATH + 'book_api');
+var transaction_api = require(API_FILE_PATH + 'transaction_api');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/api/usertypes', usertype_api);
 app.use('/api/users', user_api);
 app.use('/api/bookcategories', bookcategory_api);
 app.use('/api/books', book_api);
+app.use('/api/transactions', transaction_api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

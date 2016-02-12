@@ -6,6 +6,18 @@ libraryService.factory('libraryServiceUserType', ['$resource', libraryServiceUse
 libraryService.factory('libraryServiceUser', ['$resource', libraryServiceUserFunc]);
 libraryService.factory('libraryServiceBookCategory', ['$resource', libraryServiceBookCategoryFunc]);
 libraryService.factory('libraryServiceBook', ['$resource', libraryServiceBookFunc]);
+libraryService.factory('libraryServiceTransaction', ['$resource', libraryServiceTransactionFunc]);
+
+function libraryServiceTransactionFunc($resource) {
+    return $resource( ROOT_URL + '/api/transactions/:command/:command2', {}, {
+        'getTransactions': {
+            method: 'GET',
+            params: {
+                r: Date.now()
+            }
+        }
+    });
+}
 
 function libraryServiceUserTypeFunc($resource) {
     return $resource( ROOT_URL + '/api/usertypes/:command/:command2', {}, {
@@ -19,7 +31,7 @@ function libraryServiceUserTypeFunc($resource) {
 }
 
 function libraryServiceUserFunc($resource) {
-    return $resource( ROOT_URL + '/api/users/:userId', {}, {
+    return $resource( ROOT_URL + '/api/users/:userId/:command/', {}, {
         'getUsers': {
             method: 'GET',
             params: {
@@ -35,8 +47,8 @@ function libraryServiceUserFunc($resource) {
         },
         'doLogin': {
             method: 'POST',
-            userId: 'login',
             params: {
+                command: 'login',
                 r: Date.now()
             },
             data:{
@@ -46,7 +58,7 @@ function libraryServiceUserFunc($resource) {
         },
         'insertUser': {
             method: 'POST',
-            userId : '@userTypeId',
+            userId : '@userId',
             params: {
                 r: Date.now()
             },
