@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  div(class="row" ng-app="irfan.libraryApplication" ng-controller="library.ctrl")
+    div(id="particles-js" ng-show="currentPageView === 'loginpage'")
+    include headerfooter/header-block
+    include login-block
+    include homepage-block
+    include gridblock/grid-book-block
+    include gridblock/grid-transaction-block
+    include gridblock/grid-user-block
+    include formblock/form-book-block
+  include headerfooter/footer-block
+
+block javascript
+  script(src = "/javascripts/app/application/LibraryApp.js")
+  script(src = "/javascripts/app/controllers/library-controller.js")
+  script(src = "/javascripts/app/services/library-service.js")
+  script(src = "/javascripts/app/directives/library-directive.js")
+  script(src = "/javascripts/app/filters/library-filter.js")

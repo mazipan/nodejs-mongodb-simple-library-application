@@ -1,0 +1,20 @@
+div(class="padding top-of-particle" ng-show="currentPageView === 'homepage' && tabHomePageActive === 'transaction'")
+   button(class="waves-effect waves-light btn blue marginright" title="Add New")
+      i(class="fa fa-plus")
+   table(class="striped")
+      thead
+         th No
+         th Date
+         th Book Title
+         th Author
+         th Return Date
+         th Action
+      tbody
+         tr(ng-repeat="transaction in transactions track by $index")
+            td {{$index}}
+            td {{transaction.created}}
+            td {{transaction.book.bookAuthor}}
+            td {{transaction.mustReturnDate}}
+            td
+               button(class="waves-effect waves-light btn blue" title="Return Book")
+                  i(class="fa fa-check")

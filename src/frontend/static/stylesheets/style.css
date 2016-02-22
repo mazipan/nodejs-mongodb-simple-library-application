@@ -1,0 +1,85 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+.padding{
+  padding: 10px;
+}
+.marginright{
+  margin-right: 5px;
+}
+#particles-js {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90%;
+  background-size: cover;
+}
+.top-of-particle{
+  z-index: 2;
+}
+.login-wrapper{
+  padding: 50px;
+}
+.login-block{
+  width: 400px;
+  border: 1px solid #26a69a;
+}
+.login-header{
+  height: 45px;
+  color: #fff;
+  background-color: #26a69a;
+  vertical-align: middle;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 18px;
+}
+.login-form{
+  padding: 10px;
+}
+.login-btn{
+  width: 100%;
+  height: 45px !important;
+}
+.subtitle{
+  font-size: 24px;
+  font-weight: 300;
+}
+
+nav {
+  background-color: #26a69a !important;
+}
+nav .brand-logo {
+  padding: 0 20px;
+}
+/*
+.tabs .tab a {
+  color: #26a69a !important;
+}*/
+.footer{
+  position: fixed;
+  bottom: 0;
+  height: 45px;
+  width: 100%;
+  background-color: #26a69a;
+  z-index: 2;
+  color: #fff;
+  padding: 7px;
+}
+.footer-block{
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 20px;
+}
+.footer-social{
+  color:#fff;
+  padding: 0 5px;
+}
+.footer-social:hover{
+  color:#000;
+}

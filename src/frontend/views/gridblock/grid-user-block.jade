@@ -1,0 +1,21 @@
+div(class="padding top-of-particle" ng-show="currentPageView === 'homepage' && tabHomePageActive === 'user'")
+   button(class="waves-effect waves-light btn blue marginright" title="Add New")
+      i(class="fa fa-plus")
+   table(class="striped")
+      thead
+         th No
+         th Username
+         th Real Name
+         th Email
+         th Action
+      tbody
+         tr(ng-repeat="user in users track by $index")
+            td {{$index}}
+            td {{user.username}}
+            td {{user.trueName}}
+            td {{user.email}}
+            td
+               button(class="waves-effect waves-light btn blue marginright" title="Edit")
+                  i(class="fa fa-pencil")
+               button(class="waves-effect waves-light btn blue" title="Delete")
+                  i(class="fa fa-trash")

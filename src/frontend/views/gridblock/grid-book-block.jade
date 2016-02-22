@@ -1,0 +1,23 @@
+div(class="padding top-of-particle" ng-show="currentPageView === 'homepage' && tabHomePageActive === 'book'")
+   button(class="waves-effect waves-light btn blue marginright" title="Add New" ng-click="changeCurrentPageView('book-form')")
+      i(class="fa fa-plus")
+   table(class="striped")
+      thead
+         th No
+         th Title
+         th Author
+         th Category
+         th Year Published
+         th Action
+      tbody
+         tr(ng-repeat="book in books track by $index")
+            td {{$index}}
+            td {{book.bookTitle}}
+            td {{book.bookAuthor}}
+            td {{book.bookCategory.categoryName}}
+            td {{book.bookYearPublished}}
+            td
+               button(class="waves-effect waves-light btn blue marginright" title="Edit")
+                  i(class="fa fa-pencil")
+               button(class="waves-effect waves-light btn blue" title="Delete")
+                  i(class="fa fa-trash")

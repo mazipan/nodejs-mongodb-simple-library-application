@@ -1,0 +1,16 @@
+//
+   Created by irfan.maulana on 2/10/2016.
+div(class="row login-wrapper" ng-show="currentPageView === 'loginpage'")
+   h1= title
+   span(class="subtitle") Welcome to #{title} :
+      span(class="typed-text")
+   div(class="login-block top-of-particle")
+      div(class="login-header") Form Login
+      form(class="login-form" ng-submit="submitLogin()")
+         div(class="input-field")
+            input(type="text" id="login-username" ng-model="loginUserName" required autofocus)
+            label(for="login-username") Username
+         div(class="input-field")
+            input(type="password" id="login-password" ng-model="loginPassword" required)
+            label(for="login-password") Password
+         button(type="submit" class="btn waves-effect waves-light dark-green login-btn") Submit Login
